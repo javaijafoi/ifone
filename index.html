@@ -27,7 +27,7 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--stage);color:var(--bar-fg);font-family:system-ui,sans-serif;overflow:hidden;display:flex;flex-direction:column}
+body{margin:0;background:var(--stage);color:var(--bar-fg);font-family:system-ui,sans-serif;overflow:hidden;display:flex;flex-direction:column}
 body[data-skin=b]{--stage:#2b3a36;}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
 button:focus-visible{outline:3px solid var(--bar-on);outline-offset:2px}
@@ -77,9 +77,10 @@ img.spr{image-rendering:pixelated;display:block}
 [data-skin=b] #phone::before{content:"NOKTIS";position:absolute;top:22px;left:0;right:0;text-align:center;font:600 12px system-ui;letter-spacing:.35em;color:#c9d2e6}
 [data-skin=b] #screen{flex:0 0 44%;background:var(--lcd);color:var(--lcd-ink);font:24px/1 var(--f-lcd);border:9px solid #0a0f1c;border-radius:10px;box-shadow:inset 3px 3px 0 #0003;background-image:linear-gradient(#0000 3px,#0000000a 3px),linear-gradient(90deg,#0000 3px,#0000000a 3px);background-size:4px 4px}
 .b-st{display:flex;justify-content:space-between;padding:4px 8px;font-size:18px}
-.b-mid{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:0 8px}
-.b-mid .nm{font-size:30px}
-.b-mid .ar{font-size:18px;color:var(--lcd-dim)}
+.b-mid{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:0 8px;overflow:hidden}
+.b-mid img{flex:0 1 90px;min-height:0;width:auto;height:90px;max-height:90px;aspect-ratio:1}
+.b-mid .nm{font-size:30px;line-height:.9}
+.b-mid .ar{font-size:18px;line-height:.8;color:var(--lcd-dim)}
 .b-txt{flex:1;min-height:0;overflow:auto;padding:2px 10px;font-size:22px;line-height:1.05;scrollbar-width:none}
 .b-txt p{margin:0 0 6px}.b-txt .t{border-bottom:2px solid var(--lcd-ink);padding-bottom:3px}
 .b-soft{display:flex;justify-content:space-between;padding:3px 8px;font-size:20px;border-top:2px solid var(--lcd-ink)}
@@ -104,7 +105,7 @@ img.spr{image-rendering:pixelated;display:block}
 .k-num small{font-size:8px;font-weight:600;letter-spacing:.08em;opacity:.6;min-width:22px;text-align:left}
 #keys button:active{filter:brightness(.85)}
 [data-skin=b] #screen{flex-basis:40%}
-@media (max-width:700px){[data-skin=b] #rig{width:100%}[data-skin=b] #phone{border-radius:0;padding:40px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}[data-skin=b] #phone::before{top:14px}}
+@media (max-width:700px){[data-skin=b] #rig{width:100%}[data-skin=b] #phone{border-radius:0;padding:40px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}[data-skin=b] #phone::before{top:14px}[data-skin=b] #screen{flex-basis:46%}}
 
 /* ───── D · Zine ───── */
 .d-wrap{flex:1;min-height:0;overflow:auto;padding:16px 16px 20px;display:flex;flex-direction:column;gap:14px}
@@ -115,7 +116,7 @@ img.spr{image-rendering:pixelated;display:block}
 .d-s{padding:10px 14px;border:3px solid var(--zn-ink);box-shadow:4px 4px 0 var(--zn-ink);background:var(--bg);color:var(--fg,var(--zn-ink));transform:rotate(var(--rot));font:var(--fs) var(--ff);border-radius:var(--br,0)}
 .d-s:hover,.d-s:focus-visible{transform:rotate(0) scale(1.06)}
 .d-foot{font:14px var(--f-zn2);text-align:center;transform:rotate(1.5deg);margin-top:auto}
-.d-back{font:15px var(--f-zn2);text-align:left;text-decoration:underline wavy var(--zn-pink)}
+.d-back{font:15px var(--f-zn2);text-align:left;align-self:flex-start;min-height:36px;padding:6px 14px 6px 0;text-decoration:underline wavy var(--zn-pink)}
 .d-clip{position:relative;background:#fffdf5;border:3px solid var(--zn-ink);padding:22px 14px 14px;transform:rotate(1.2deg);box-shadow:5px 5px 0 var(--bg)}
 .d-clip::before{content:"";position:absolute;top:-13px;left:50%;width:96px;height:24px;margin-left:-48px;background:#ffd40099;border-inline:2px dashed #0003;transform:rotate(-4deg)}
 .d-kick{font:13px var(--f-zn1);background:var(--zn-ink);color:var(--zn-paper);display:inline-block;padding:3px 7px;transform:rotate(-2deg)}
@@ -171,6 +172,8 @@ body[data-skin=f]{background:var(--zn-cyan) radial-gradient(#0003 1.5px,#0000 1.
 .f-pd button:active{box-shadow:none;translate:3px 3px}
 .f-pd+.f-hint{margin-top:0}
 .b-txt p.as{border:2px solid var(--lcd-ink);padding:1px 4px}
+.f-toast{align-self:center;margin:0;font:13px var(--f-zn1);background:var(--zn-yellow);border:3px solid var(--zn-ink);padding:6px 10px;transform:rotate(-2deg)}
+.d-saved button{font:14px var(--f-zn2);min-height:32px;padding:4px 8px;text-decoration:underline wavy var(--zn-pink);margin-left:6px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.a-row{opacity:1}}
 </style>
 </head>
@@ -371,7 +374,7 @@ Object.assign(APPS.tempest,flow({
   if(s.step===1)return{kicker:c.t,items:s.list.map((x,i)=>({t:x.tit,s:`${x.vend} · ${stars(x.conf)}`,r:money(x.pay),act:'see',arg:i})),actions:[{label:'Buscar de novo',act:'again'}]};
   if(s.step===2)return{card:{tag:'Link criptografado',title:o.tit,rows:[['Vendedor',o.vend],['Confiança',stars(o.conf)],['Preço',money(o.pay)],['Amostra',o.amostra],['Conteúdo','▒▒▒▒▒ ▒▒▒ ▒▒▒▒▒▒▒']],note:'O conteúdo só abre depois do pagamento. Não há estorno nem suporte.'},actions:[{label:'Pagar e abrir',act:'buy'},{label:'Guardar',act:'pin',alt:1}]};
   return{card:{tag:'Arquivo aberto',title:o.tit,rows:[['Era verdade?',s.verdade],['Rastro',s.rastro],['Pago',money(o.pay)]],aspects:[/Inventado|Isca/.test(s.verdade)?asp('Informação Furada'):asp(s.cont,true)]},actions:[{label:'Guardar',act:'pin'},{label:'Nova busca',act:'reset',alt:1}]}},
- on(s,a,arg){if(a==='cat'){s.cat=TMP.cat[+arg];s.list=[0,1,2].map(()=>this.offer(s.cat));s.step=1}else if(a==='again')s.list=[0,1,2].map(()=>this.offer(s.cat));else if(a==='see'){s.o=s.list[+arg];s.step=2}else if(a==='buy'){s.step=3;s.cont=pick(s.cat.cont);s.verdade=pick(TMP.verdade.slice(0,3+s.o.conf));s.rastro=pick(TMP.rastro)}else if(a==='reset')return{step:0}}}));
+ on(s,a,arg){if(a==='cat'){s.cat=TMP.cat[+arg];s.list=[0,1,2].map(()=>this.offer(s.cat));s.step=1}else if(a==='again')s.list=[0,1,2].map(()=>this.offer(s.cat));else if(a==='see'){s.o=s.list[+arg];s.step=2}else if(a==='buy'){s.step=3;s.cont=pick(s.cat.cont);s.verdade=pick(TMP.verdade.filter(v=>/Inventado|Isca/.test(v)===(Math.random()<(6-s.o.conf)/7)));s.rastro=pick(TMP.rastro)}else if(a==='reset')return{step:0}}}));
 Object.assign(APPS.biopure,flow({
  init:()=>({step:0}),
  screen(s){const c=s.cena;
@@ -396,18 +399,19 @@ function sprite(rows,mono){const c=document.createElement('canvas');c.width=c.he
 KEYS.forEach(k=>{APPS[k].img=sprite(APPS[k].spr);APPS[k].mono=sprite(APPS[k].spr,'#27331f')});
 const spr=(k,s,mono)=>`<img class="spr" alt="" width="${s}" height="${s}" src="${mono?APPS[k].mono:APPS[k].img}">`;
 const SKINS={f:'Cartucho punk',b:'Tijolão'};
+let toast='';
 let skin=(x=>SKINS[x]?x:'f')(store.get('fos-skin','f')),view='home',sel=0,bsel=0,ST={},M=null,fresh=false,follow=false;
 const scr=document.getElementById('screen'),bar=document.getElementById('bar');
 const hhmm=()=>new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 const pins=k=>store.get('fos-pin-'+k,[]);
-const menu=m=>[...(m.items||[]).map(i=>({label:`${i.t} (${i.r})`,act:i.act,arg:i.arg})),...(m.actions||[])];
+const menu=m=>[...(m.items||[]).map(i=>({label:`${i.t} (${i.r})`,act:i.act,arg:i.arg})),...(m.actions||[]),...(!m.card&&view!=='home'&&pins(view).length?[{label:'Limpar guardados',act:'unpin'}]:[])];
 const btn=(x,i,cls)=>`<button class="${cls}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''} id="act-${x.act}-${x.arg??i}">`;
 
 const R={
 b:{home:()=>{const k=KEYS[sel];return`<div class="b-st"><span>▂▄▆█</span><span>${hhmm()}</span><span>▮▮▮</span></div><div class="b-mid"><span class="ar">▲ ${sel+1}/${KEYS.length}</span>${spr(k,90,1)}<span class="nm">${APPS[k].name}</span><span class="ar">▼</span></div><div class="b-soft"><span>Abrir</span><span>Destino: ${fp()}</span></div>`},
- app:(k,a,m)=>{const c=m.card,mn=menu(m),p=pins(k);return`<div class="b-st"><span>${a.name}</span><span>${hhmm()}</span></div><div class="b-txt" id="b-txt">${m.kicker?`<p class="t">${m.kicker}</p>`:''}${c?`<p class="t">${c.title}</p><p>${c.tag}</p>${c.rows.map(x=>`<p>${x[0]}: ${x[1]}</p>`).join('')}${(c.aspects||[]).map(a=>`<p class="as">Aspecto: ${a.t}${a.free?' (1 invocação grátis)':''}</p>`).join('')}${c.note?`<p>${c.note}</p>`:''}`:''}${mn.map((x,i)=>`<p class="m ${i===bsel?'sel':''}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''}>${i===bsel?'▶':'·'} ${x.label}</p>`).join('')}${m.foot?`<p>${m.foot}</p>`:''}${p.length&&!c?`<p class="t">Guardados: ${p.length}</p>`+p.map(x=>`<p>${x.title}</p>`).join(''):''}</div><div class="b-soft"><span>Selec.</span><span>Voltar</span></div>`}},
+ app:(k,a,m)=>{const c=m.card,mn=menu(m),p=pins(k);return`<div class="b-st"><span>${a.name}</span><span>${hhmm()}</span></div><div class="b-txt" id="b-txt">${m.kicker?`<p class="t">${m.kicker}</p>`:''}${c?`<p class="t">${c.title}</p><p>${c.tag}</p>${c.rows.map(x=>`<p>${x[0]}: ${x[1]}</p>`).join('')}${(c.aspects||[]).map(a=>`<p class="as">Aspecto: ${a.t}${a.free?' (1 invocação grátis)':''}</p>`).join('')}${c.note?`<p>${c.note}</p>`:''}`:''}${mn.map((x,i)=>`<p class="m ${i===bsel?'sel':''}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''}>${i===bsel?'▶':'·'} ${x.label}</p>`).join('')}${m.foot?`<p>${m.foot}</p>`:''}${p.length&&!c?`<p class="t">Guardados: ${p.length}</p>`+p.map(x=>`<p>${x.title}</p>`).join(''):''}</div><div class="b-soft"><span>Selec.</span>${toast?`<span>${toast}</span>`:''}<span>Voltar</span></div>`}},
 f:{home:()=>{const C=['--zn-pink','--zn-cyan','--zn-yellow'],T=[-3,2,-1,3,-2,1,2];return`<div class="f-top"><span>iHUNT-OS</span><span>${hhmm()}</span></div><div class="f-wrap"><h1 class="f-h"><span>ESCOLHE UM APP</span></h1><div class="f-grid">${KEYS.map((k,i)=>`<button class="f-ic ${i===sel?'sel':''}" data-act="open" data-arg="${k}" id="f-${k}"><div class="tile" style="--bg:var(${C[i%3]});--rot:${T[i]}deg">${spr(k,50)}</div><span>${APPS[k].name}</span></button>`).join('')}</div><div class="f-pd"><button data-act="pd" data-arg="-1" id="pd-menos" aria-label="Menos um ponto">−</button><span>PONTOS DE DESTINO <b>${fp()}</b></span><button data-act="pd" data-arg="1" id="pd-mais" aria-label="Mais um ponto">+</button></div><p class="f-hint">by @javaijafoi</p></div>`},
- app:(k,a,m)=>{const c=m.card,p=pins(k),SH=['--zn-pink','--zn-cyan','--zn-yellow'];return`<div class="f-top"><span>${a.name.toUpperCase()}</span><span>${hhmm()}</span></div><div class="f-wrap"><button class="d-back" data-act="back" id="f-back">← voltar</button>${m.kicker?`<div class="f-kick">${m.kicker}</div>`:''}${c?`<div class="f-box"><div class="f-head"><div class="tile">${spr(k,50)}</div><div><span class="f-tag">${c.tag}</span><b id="a-type">${fresh?'':c.title.toUpperCase()}</b></div></div>${c.rows.map((x,i)=>`<div class="a-row" style="animation-delay:${fresh?(i+1)*.14:0}s"><i>${x[0]}</i><u></u><b>${x[1]}</b></div>`).join('')}${(c.aspects||[]).map(a=>`<div class="f-asp"><small>ASPECTO${a.free?' · 1 INVOCAÇÃO GRÁTIS':''}</small>${a.t}</div>`).join('')}${c.note?`<p class="f-note">${c.note}</p>`:''}</div>`:''}${m.items?`<div class="f-list">${m.items.map((x,i)=>btn(x,i,'f-it')+`<div><b>${x.t}</b><small>${x.s}</small></div><span class="r">${x.r}</span></button>`).join('').replace(/class="f-it"/g,(_m,o)=>`class="f-it" style="--sh:var(${SH[(o>>3)%3]});--rot:${[-1,.8,-.5][(o>>3)%3]}deg"`)}</div>`:''}<div class="d-btns">${(m.actions||[]).map((x,i)=>btn(x,i,'d-b'+(x.alt||i%2?' alt':''))+x.label.toUpperCase()+'</button>').join('')}</div>${m.foot?`<p class="f-foot">${m.foot}</p>`:''}${p.length&&!c?`<div class="d-saved">guardados: ${p.map(x=>x.title).join(' / ')}</div>`:''}</div>`}}
+ app:(k,a,m)=>{const c=m.card,p=pins(k),SH=['--zn-pink','--zn-cyan','--zn-yellow'];return`<div class="f-top"><span>${a.name.toUpperCase()}</span><span>${hhmm()}</span></div><div class="f-wrap"><button class="d-back" data-act="back" id="f-back">← voltar</button>${m.kicker?`<div class="f-kick">${m.kicker}</div>`:''}${c?`<div class="f-box"><div class="f-head"><div class="tile">${spr(k,50)}</div><div><span class="f-tag">${c.tag}</span><b id="a-type">${fresh?'':c.title.toUpperCase()}</b></div></div>${c.rows.map((x,i)=>`<div class="a-row" style="animation-delay:${fresh?(i+1)*.14:0}s"><i>${x[0]}</i><u></u><b>${x[1]}</b></div>`).join('')}${(c.aspects||[]).map(a=>`<div class="f-asp"><small>ASPECTO${a.free?' · 1 INVOCAÇÃO GRÁTIS':''}</small>${a.t}</div>`).join('')}${c.note?`<p class="f-note">${c.note}</p>`:''}</div>`:''}${m.items?`<div class="f-list">${m.items.map((x,i)=>btn(x,i,'f-it')+`<div><b>${x.t}</b><small>${x.s}</small></div><span class="r">${x.r}</span></button>`).join('').replace(/class="f-it"/g,(_m,o)=>`class="f-it" style="--sh:var(${SH[(o>>3)%3]});--rot:${[-1,.8,-.5][(o>>3)%3]}deg"`)}</div>`:''}<div class="d-btns">${(m.actions||[]).map((x,i)=>btn(x,i,'d-b'+(x.alt||i%2?' alt':''))+x.label.toUpperCase()+'</button>').join('')}</div>${m.foot?`<p class="f-foot">${m.foot}</p>`:''}${toast?`<p class="f-toast" role="status">${toast}</p>`:''}${p.length&&!c?`<div class="d-saved">guardados: ${p.map(x=>x.title).join(' / ')} <button data-act="unpin" id="f-unpin">limpar</button></div>`:''}</div>`}}
 };
 let typeT;
 function render(){
@@ -419,7 +423,7 @@ function render(){
   const t2=document.getElementById('b-txt');if(t2){t2.scrollTop=fresh?0:top;if(follow){const e=t2.querySelector('.sel');if(e)e.scrollIntoView({block:'nearest'})}}
     clearInterval(typeT);const t=document.getElementById('a-type');
   if(t&&fresh&&M&&M.card){const s=M.card.title.toUpperCase();let i=0;typeT=setInterval(()=>{t.textContent=s.slice(0,++i);if(i>=s.length)clearInterval(typeT)},24)}
-  fresh=false;follow=false;
+  fresh=false;follow=false;toast='';
 }
 function bnav(d){const t=document.getElementById('b-txt'),n=menu(M).length,e=t&&t.querySelector('.sel');if(!t)return;
   const vis=e&&e.offsetTop>=t.scrollTop&&e.offsetTop+e.offsetHeight<=t.scrollTop+t.clientHeight;
@@ -441,7 +445,8 @@ function act(a,arg){
     else if(a==='nav')return bnav(+arg);
     else if(a==='softL'||a==='ok'){if(mn[bsel])return act(mn[bsel].act,mn[bsel].arg);return}
     else if(a==='num'){if(mn[arg-1])return act(mn[arg-1].act,mn[arg-1].arg);return}
-    else if(a==='pin'){if(M.card){const p=pins(view);if(!p.some(x=>x.title===M.card.title))store.set('fos-pin-'+view,[{title:M.card.title},...p].slice(0,8))}}
+    else if(a==='pin'){if(M.card){const p=pins(view);if(p.some(x=>x.title===M.card.title))toast='Já estava guardado';else{store.set('fos-pin-'+view,[{title:M.card.title},...p].slice(0,8));toast='Guardado em '+APPS[view].name}}}
+    else if(a==='unpin'){store.set('fos-pin-'+view,[]);toast='Guardados apagados'}
     else{const r=app.on(st,a,arg);if(r)ST[view]=r;bsel=0;fresh=true}
   }
   render();
