@@ -162,6 +162,15 @@ body[data-skin=f]{background:var(--zn-cyan) radial-gradient(#0003 1.5px,#0000 1.
 .f-foot{font:14px var(--f-zn2);text-align:center;margin:0;transform:rotate(1deg)}
 .d-btns{flex-wrap:wrap}
 .b-txt p.m{margin:0;padding:1px 2px;cursor:pointer}.b-txt p.m.sel{background:var(--lcd-ink);color:var(--lcd)}
+.f-asp{background:var(--zn-ink);color:var(--zn-paper);font:20px/1.05 var(--f-zn3);letter-spacing:.03em;padding:7px 10px 8px;margin-top:8px;box-shadow:4px 4px 0 var(--zn-pink);transform:rotate(-1deg)}
+.f-asp+.f-asp{transform:rotate(.8deg);box-shadow:4px 4px 0 var(--zn-cyan)}
+.f-asp small{display:block;font:8px var(--f-zn1);color:var(--zn-yellow);margin-bottom:4px;letter-spacing:.08em}
+.f-pd{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:auto;font:11px var(--f-zn1)}
+.f-pd b{font:26px/1 var(--f-zn3);background:var(--zn-yellow);padding:2px 9px;border:3px solid var(--zn-ink);margin-left:4px;vertical-align:middle}
+.f-pd button{width:38px;height:38px;border:3px solid var(--zn-ink);background:var(--zn-paper);box-shadow:3px 3px 0 var(--zn-ink);font:22px/1 var(--f-zn1)}
+.f-pd button:active{box-shadow:none;translate:3px 3px}
+.f-pd+.f-hint{margin-top:0}
+.b-txt p.as{border:2px solid var(--lcd-ink);padding:1px 4px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.a-row{opacity:1}}
 </style>
 </head>
@@ -189,6 +198,10 @@ const pick=a=>a[Math.floor(Math.random()*a.length)], rnd=(a,b)=>Math.floor(Math.
 const money=n=>'R$ '+n.toLocaleString('pt-BR'), stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
 const some=(a,n)=>{const c=[...a],o=[];while(o.length<n&&c.length)o.push(c.splice(Math.floor(Math.random()*c.length),1)[0]);return o};
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const SMALL=new Set('de do da dos das e o a os as em no na nos nas com por para que um uma se ao à às'.split(' '));
+const asp=(t,free)=>({t:t.replace(/["“”.]/g,'').split(' ').map((w,i)=>i&&SMALL.has(w.toLowerCase())?w.toLowerCase():w[0].toUpperCase()+w.slice(1)).join(' '),free:!!free});
+const odd=t=>/^Nenhum|^Nada/.test(t)?[]:[asp(t)];
+const fp=()=>store.get('ifone-pd',3),fpAdd=d=>store.set('ifone-pd',Math.max(0,fp()+ +d));
 const NAMES=['Cleide','Wagner','Dona Márcia','Tadeu','Bianca','Ozires','Luana','Seu Jorge','Nádia','Rui','Kelly','Heitor','Jussara','Edmilson','Tia Neide','Caio','Rosângela','Valdir','Mirela','Seu Anselmo','Dandara','Gilson','Paloma','Dona Zuleica'];
 const BAIRROS=['Mooca','Centro','Santo Amaro','Tatuapé','Pinheiros','Lapa','Vila Madalena','Brás','Bixiga','Barra Funda','Penha','Ipiranga','Liberdade','Santana','Campo Limpo','Jabaquara'];
 
@@ -224,6 +237,7 @@ const HUNT={
  pista:['Vizinhos ouvem arranhões depois da meia-noite','Cheiro de pelo molhado na escada','As câmeras apagam sempre às 3h07','O cliente está escondendo alguma coisa','Uma foto com uma sombra a mais','Marcas de mordida em pneus','O alvo frequenta o mesmo bar toda quinta','Um entregador viu tudo e quer dinheiro','Há terra de cemitério no capacho','O zelador troca as lâmpadas e elas queimam de novo','Alguém vende informação sobre o alvo no Tempest','O alvo tem perfil no Brinqr','Três pets sumiram no mesmo quarteirão','Uma criança desenhou o monstro com detalhes demais','O padre do bairro se recusa a comentar','O alvo paga o aluguel em moedas antigas','Há sal derretido nos cantos do prédio','A vítima anterior sobreviveu e não fala','O alvo foi visto de dia, o que não devia ser possível','O endereço do contrato não existe no mapa'],
  comp:['O alvo não está sozinho','Outro caçador aceitou o mesmo contrato','O cliente aparece no local para "acompanhar"','A polícia chega em dez minutos','O alvo implora, e o argumento é bom','Era um humano. O cliente só não gostava dele','Seu equipamento falha na pior hora','O alvo sabe o seu nome','Tem criança no imóvel','O app atualiza e o mapa some no meio da caçada','O alvo oferece o dobro para você ir embora','O lugar pega fogo, e não foi você','Um vizinho está filmando tudo','O alvo já estava morto quando você chegou','Era uma armadilha para caçadores','Você se machuca: hora de abrir o MedJá','A cena ficou feia: o Biopure custa mais que o contrato','O alvo é parente de alguém que você conhece','Chove, a rua alaga e o carro não pega','O cliente cancela quando você já está lá dentro'],
  oculto:['O contrato já foi recusado por três caçadores','O cliente mentiu sobre o tipo de criatura','O alvo também é cliente do #iHunt','O valor anunciado inclui a taxa do app','O prazo é menor do que aparece','Há um segundo alvo que ninguém mencionou','O cliente tem nota baixa por não pagar','O alvo tem advogado','O serviço é em propriedade de gente poderosa','Nada. Desta vez o app foi honesto'],
+ dilema:[['Salvar o refém e deixar o alvo fugir','Pegar o alvo e deixar o refém para trás'],['Terminar o serviço e perder a amizade','Proteger o amigo e perder o contrato'],['Queimar o lugar com as provas dentro','Sair limpo e deixar tudo para a polícia achar'],['Aceitar a ajuda do outro monstro e ficar devendo','Recusar e entrar sozinho, ferido'],['Contar a verdade ao cliente e levar uma estrela','Mentir e carregar isso depois'],['Usar a última bala de prata agora','Guardar e apanhar até a hora certa'],['Largar o equipamento e correr','Ficar com tudo e ser visto'],['Entregar o alvo vivo para quem paga mais','Cumprir o contrato e fazer um inimigo rico'],['Chamar a Biopure e ficar no prejuízo','Limpar sozinho e deixar um rastro'],['Dormir e perder o prazo','Ir sem dormir e errar alguma coisa']],
  pagto:['Caiu na conta','Caiu na conta','Caiu na conta','O banco marcou como "atividade suspeita". Conta bloqueada até segunda','O cliente contestou e o valor está em análise','Cai em 3 dias úteis, diz o app. Há 5 dias','O cliente descontou a "sujeira" do valor','Pagamento rejeitado. O banco diz para falar com o #iHunt, o #iHunt diz para falar com o banco']
 };
 function huntGen(){
@@ -237,10 +251,10 @@ const APPS={
 sofah:{name:'Sofah',spr:['..........','.oooooooo.','.oooooooo.','oonnnnnnoo','oooooooooo','oooooooooo','oooooooooo','nnnnnnnnnn','.d......d.','..........'],
  init:()=>({list:[sofaGen(),sofaGen(),sofaGen()],open:null,booked:null}),
  screen(s){
-  if(s.booked)return{card:{tag:'Reserva confirmada',title:`${s.booked.tipo} de ${s.booked.host}`,rows:[['Onde',s.booked.bairro],['Chegada',s.booked.chegada],['Lembrete',s.booked.regra]],note:'Durante a noite: '+s.booked.noite},actions:[{label:'Nova busca',act:'refresh'}]};
-  if(s.open!==null){const l=s.list[s.open],rows=[['Preço no app',money(l.price)+' a noite'],['Anfitrião',`${l.host} ${stars(l.nota)}`],['Regra da casa',l.regra],['Estranheza',l.estranho]];
+  if(s.booked)return{card:{tag:'Reserva confirmada',title:`${s.booked.tipo} de ${s.booked.host}`,rows:[['Onde',s.booked.bairro],['Chegada',s.booked.chegada]],aspects:[...odd(s.booked.estranho),asp(s.booked.regra)],note:'Durante a noite: '+s.booked.noite},actions:[{label:'Nova busca',act:'refresh'}]};
+  if(s.open!==null){const l=s.list[s.open],rows=[['Preço no app',money(l.price)+' a noite'],['Anfitrião',`${l.host} ${stars(l.nota)}`]];
    if(l.dec)rows.push(['Preço real',money(l.real)],['Como pagar','Deixe o dinheiro '+l.paga]);
-   return{card:{tag:`${l.bairro} · ${l.dist} m`,title:l.tipo,rows,note:(l.dec?l.key+'. ':'Anúncio: ')+(l.dec?'Pagando por fora o app não fica com os 30%, mas se descobrirem a conta é bloqueada.':l.desc)},
+   return{card:{tag:`${l.bairro} · ${l.dist} m`,title:l.tipo,rows,aspects:[...odd(l.estranho),asp(l.regra)],note:(l.dec?l.key+'. ':'Anúncio: ')+(l.dec?'Pagando por fora o app não fica com os 30%, mas se descobrirem a conta é bloqueada.':l.desc)},
     actions:[...(l.hunter&&!l.dec?[{label:'Decifrar código',act:'decode'}]:[]),{label:'Reservar',act:'book'},{label:'Guardar',act:'pin',alt:1}]}}
   return{kicker:'Sofás livres agora',items:s.list.map((l,i)=>({t:l.tipo,s:`${l.host} · ${l.bairro} · ${l.dist} m`,r:money(l.price),act:'see',arg:i})),actions:[{label:'Buscar de novo',act:'refresh'}],foot:'Preço absurdo? Leia o anúncio com atenção.'}},
  on(s,a,arg){if(a==='see')s.open=+arg;else if(a==='decode')s.list[s.open].dec=true;else if(a==='book'){const l=s.list[s.open];s.booked={...l,chegada:pick(SOFA.chegada),noite:pick(SOFA.noite)}}else if(a==='refresh')return this.init()},
@@ -254,16 +268,21 @@ ihunt:{name:'#iHunt',spr:['....rr....','..rrrrrr..','.rr.rr.rr.','.r..rr..r.','r
   if(s.terms)return{card:{tag:'Atualização obrigatória',title:`#iHunt beta ${rnd(5,9)}.${rnd(0,9)}.${rnd(0,99)}`,rows:[['Mudou','O botão de mapa trocou de lugar'],['Tamanho',rnd(41,97)+' páginas']],note:'Aceite os novos Termos de Serviço para continuar. Ao aceitar você confirma que todo alvo é uma criatura sobrenatural perigosa.'},actions:[{label:'Aceitar sem ler',act:'terms'}]};
   const c=s.open!==null&&s.board[s.open];
   if(s.phase==='done')return{card:{tag:'Contrato encerrado',title:`${c.alvo} ${em(c.bairro)}`,rows:[['Avaliação',stars(s.rev.n)],['Pagamento',s.rev.pg],['Valor',money(c.pay)]],note:`${c.c.nome}: ${s.rev.txt}`},actions:[{label:'Voltar ao mural',act:'refresh'}],foot:notaTxt()};
-  if(s.phase==='acc')return{card:{tag:'Contrato aceito',title:`${c.alvo} ${em(c.bairro)}`,rows:[['Prazo',c.prazo+' h'],['Pista',c.pista],['O app não contou',s.oculto]],note:'No meio do serviço: '+s.comp},actions:[{label:'Concluir',act:'finish'},{label:'Desistir',act:'quit',alt:1}]};
-  if(c)return{card:{tag:`Contrato ${stars(c.t+1)}`,title:`${c.alvo} ${em(c.bairro)}`,rows:[['Pagamento',money(c.pay)],['Cliente',c.c.nome],['Fama do cliente',c.traco],['Prazo',c.prazo+' h']],note:'O cliente escreveu: '+c.pedido},actions:[{label:'Aceitar',act:'accept'},{label:'Guardar',act:'pin',alt:1}]};
+  if(s.dilOpen)return{card:{tag:'Dilema',title:'Sem saída boa',rows:[['Lado A',s.dil.a],['Lado B',s.dil.b]],note:'Um aspecto foi apostado. Não dá para pagar para fugir: escolha um lado e aguente o outro. Você recebe 1 ponto de destino.'},actions:[{label:'Fico com A',act:'dilA'},{label:'Fico com B',act:'dilB',alt:1}]};
+  if(s.phase==='acc'){const rows=[['Prazo',c.prazo+' h'],['O app não contou',s.oculto]];if(s.dil&&s.dil.pick)rows.push(['Dilema',s.dil.pick]);
+   return{card:{tag:'Contrato aceito',title:`${c.alvo} ${em(c.bairro)}`,rows,aspects:[asp(c.pista,true),...(s.compel==='yes'?[asp(s.comp)]:[])],note:s.compel?`Chamado ${s.compel==='yes'?'aceito':'recusado'}: ${s.comp}.`:`Chamado: ${s.comp}. Aceita a complicação por 1 ponto de destino?`},
+    actions:!s.compel?[{label:'Aceitar (+1 ponto)',act:'cyes'},...(fp()>0?[{label:'Recusar (−1 ponto)',act:'cno',alt:1}]:[])]:[{label:'Concluir',act:'finish'},...(s.dil?[]:[{label:'Dilema',act:'dil',alt:1}]),{label:'Desistir',act:'quit',alt:1}],foot:'Pontos de destino: '+fp()}}
+  if(c)return{card:{tag:`Contrato ${stars(c.t+1)}`,title:`${c.alvo} ${em(c.bairro)}`,rows:[['Pagamento',money(c.pay)],['Cliente',c.c.nome],['Prazo',c.prazo+' h']],aspects:[asp(c.traco)],note:'O cliente escreveu: '+c.pedido},actions:[{label:'Aceitar',act:'accept'},{label:'Guardar',act:'pin',alt:1}]};
   return{kicker:'Contratos perto de você',items:s.board.map((c,i)=>({t:`${c.alvo} ${em(c.bairro)}`,s:`${stars(c.t+1)} · ${c.c.nome} · ${c.prazo} h`,r:money(c.pay),act:'see',arg:i})),actions:[{label:'Atualizar mural',act:'refresh'}],foot:notaTxt()}},
  on(s,a,arg){
   if(a==='terms')s.terms=false;else if(a==='see')s.open=+arg;
   else if(a==='accept'){s.phase='acc';s.comp=pick(HUNT.comp);s.oculto=pick(HUNT.oculto)}
+  else if(a==='cyes'){s.compel='yes';fpAdd(1)}else if(a==='cno'){s.compel='no';fpAdd(-1)}
+  else if(a==='dil'){const d=pick(HUNT.dilema);s.dil={a:d[0],b:d[1]};s.dilOpen=true;fpAdd(1)}else if(a==='dilA'||a==='dilB'){s.dil.pick=a==='dilA'?s.dil.a:s.dil.b;s.dilOpen=false}
   else if(a==='quit'){const h=hunter();store.set('ifone-nota',{n:h.n+1,sum:h.sum+1});s.phase='done';s.rev={n:1,pg:'Nada. Desistência não paga',txt:'"Aceitou e sumiu. Uma estrela é muito."'}}
   else if(a==='finish'){const c=s.board[s.open],n=pick(c.c.nota),h=hunter();store.set('ifone-nota',{n:h.n+1,sum:h.sum+n});s.phase='done';s.rev={n,pg:pick(HUNT.pagto),txt:pick(n>=4?c.c.ok:n<=2?c.c.ruim:[...c.c.ok,...c.c.ruim])}}
   else if(a==='refresh'){const n=this.init();n.terms=false;return n}},
- back(s){if(s.terms)return;if(s.phase==='done'){Object.assign(s,this.init(),{terms:false});return true}if(s.phase==='acc')return true;if(s.open!==null){s.open=null;return true}}},
+ back(s){if(s.terms)return;if(s.dilOpen)return;if(s.phase==='done'){Object.assign(s,this.init(),{terms:false});return true}if(s.phase==='acc')return;if(s.open!==null){s.open=null;return true}}},
 biopure:{name:'Biopure',spr:['....b.....','....bb....','...bbbb...','..bbbbbb..','.bbwbbbbb.','.bwbbbbbb.','.bbbbbbbb.','.bbbbbbbb.','..bbbbbb..','...bbbb...']},
 wetinker:{name:'WeTinker',spr:['......ll..','.....ll...','.....ll.l.','.....llll.','....lll...','...lll....','..lll.....','.lll......','lll.......','ll........']}
 };
@@ -328,7 +347,7 @@ Object.assign(APPS.medja,flow({
  screen(s){const d=s.doc,c=s.caso;
   if(s.step===0)return{kicker:'O que aconteceu?',items:MED.caso.map((x,i)=>({t:x.t,s:x.s,r:'desde '+money(x.base*50),act:'see',arg:i})),foot:'Quem tem tempo de ir ao pronto-socorro?'};
   if(s.step===1)return{card:{tag:`Chega em ${d.min} min`,title:'Dr(a). '+d.nome,rows:[['Especialidade',c.esp],['Nota',stars(d.nota)],['Valor',money(d.pay)+', ou 3x sem juros'],['Traz na maleta',d.kit],['Jeito',d.jeito]],note:d.detalhe+'. Não aceita plano de saúde.'},actions:[{label:'Chamar',act:'call'},{label:'Outro médico',act:'roll',alt:1},{label:'Guardar',act:'pin',alt:1}]};
-  return{card:{tag:'Atendimento encerrado',title:c.t,rows:[['Resultado',s.res],['Receita',s.rec],['Efeito colateral',s.col],['Conta',money(d.pay)]],note:`Dr(a). ${d.nome} pede sua avaliação. Cinco estrelas ajudam muito.`},actions:[{label:'Novo atendimento',act:'reset'}]}},
+  return{card:{tag:'Atendimento encerrado',title:c.t,rows:[['Resultado',s.res],['Receita',s.rec],['Conta',money(d.pay)]],aspects:odd(s.col),note:`Dr(a). ${d.nome} pede sua avaliação. Cinco estrelas ajudam muito.`},actions:[{label:'Novo atendimento',act:'reset'}]}},
  doc(c){return{nome:pick(MED.nome),nota:rnd(2,5),min:rnd(8,45),pay:c.base*rnd(5,14)*10,kit:pick(c.kit),jeito:pick(MED.jeito),detalhe:pick(MED.detalhe)}},
  on(s,a,arg){if(a==='see'){s.caso=MED.caso[+arg];s.doc=this.doc(s.caso);s.step=1}else if(a==='roll')s.doc=this.doc(s.caso);else if(a==='call'){s.step=2;s.res=pick(Math.random()<s.doc.nota/5.5?MED.bom:MED.ruim);s.rec=pick(MED.receita);s.col=pick(MED.colateral)}else if(a==='reset')return{step:0}},
  back(s){if(s.step===2){s.step=0;return true}if(s.step===1){s.step=0;return true}}}));
@@ -337,7 +356,7 @@ Object.assign(APPS.brinqr,{
  init(){return{step:0,p:this.prof(),miss:''}},
  screen(s){const p=s.p,t=`${p.nome}, ${p.idade}`;
   if(s.step===0)return{card:{tag:`${p.km} km · ${p.on}`,title:t,rows:[['Combina',p.match+'%'],['Procura',p.procura],['Foto',p.foto],['Sinal',p.sinal]],note:p.bio},actions:[{label:'Curtir',act:'like'},{label:'Passar',act:'roll',alt:1},{label:'Guardar',act:'pin',alt:1}],foot:s.miss||'Quer brincar no escuro?'};
-  if(s.step===1)return{card:{tag:'Deu match!',title:t,rows:[['Onde',s.lugar],['Quando',s.hora],['Sinal',p.sinal]],note:`${p.nome} escreveu: ${s.msg}`},actions:[{label:'Ir ao encontro',act:'go'},{label:'Desmarcar',act:'roll',alt:1}]};
+  if(s.step===1)return{card:{tag:'Deu match!',title:t,rows:[['Onde',s.lugar],['Quando',s.hora]],aspects:[asp(p.sinal)],note:`${p.nome} escreveu: ${s.msg}`},actions:[{label:'Ir ao encontro',act:'go'},{label:'Desmarcar',act:'roll',alt:1}]};
   if(s.step===2)return{card:{tag:'Depois do encontro',title:t,rows:[['Era vampiro?',p.v?'Era':'Não era'],['Lugar',s.lugar]],note:s.fim},actions:[{label:'Próximo perfil',act:'roll'}]};
   return{card:{tag:'Conta inexistente',title:t,rows:[['Suporte diz','"É um bug conhecido"'],['Última atividade','Antes de o app existir']],note:'Você marcou encontro com um perfil que não aparece em nenhum registro. Ele ainda sabe onde você vai estar.'},actions:[{label:'Próximo perfil',act:'roll'}]}},
  on(s,a){if(a==='roll')return{step:0,p:this.prof(),miss:''};
@@ -351,14 +370,14 @@ Object.assign(APPS.tempest,flow({
   if(s.step===0)return{kicker:'O que você procura?',items:TMP.cat.map((x,i)=>({t:x.t,s:x.s,r:'Tor',act:'cat',arg:i})),foot:'Tempest luta por você. Seus dados, nem sempre.'};
   if(s.step===1)return{kicker:c.t,items:s.list.map((x,i)=>({t:x.tit,s:`${x.vend} · ${stars(x.conf)}`,r:money(x.pay),act:'see',arg:i})),actions:[{label:'Buscar de novo',act:'again'}]};
   if(s.step===2)return{card:{tag:'Link criptografado',title:o.tit,rows:[['Vendedor',o.vend],['Confiança',stars(o.conf)],['Preço',money(o.pay)],['Amostra',o.amostra],['Conteúdo','▒▒▒▒▒ ▒▒▒ ▒▒▒▒▒▒▒']],note:'O conteúdo só abre depois do pagamento. Não há estorno nem suporte.'},actions:[{label:'Pagar e abrir',act:'buy'},{label:'Guardar',act:'pin',alt:1}]};
-  return{card:{tag:'Arquivo aberto',title:o.tit,rows:[['Era verdade?',s.verdade],['Rastro',s.rastro],['Pago',money(o.pay)]],note:s.cont},actions:[{label:'Guardar',act:'pin'},{label:'Nova busca',act:'reset',alt:1}]}},
+  return{card:{tag:'Arquivo aberto',title:o.tit,rows:[['Era verdade?',s.verdade],['Rastro',s.rastro],['Pago',money(o.pay)]],aspects:[/Inventado|Isca/.test(s.verdade)?asp('Informação Furada'):asp(s.cont,true)]},actions:[{label:'Guardar',act:'pin'},{label:'Nova busca',act:'reset',alt:1}]}},
  on(s,a,arg){if(a==='cat'){s.cat=TMP.cat[+arg];s.list=[0,1,2].map(()=>this.offer(s.cat));s.step=1}else if(a==='again')s.list=[0,1,2].map(()=>this.offer(s.cat));else if(a==='see'){s.o=s.list[+arg];s.step=2}else if(a==='buy'){s.step=3;s.cont=pick(s.cat.cont);s.verdade=pick(TMP.verdade.slice(0,3+s.o.conf));s.rastro=pick(TMP.rastro)}else if(a==='reset')return{step:0}}}));
 Object.assign(APPS.biopure,flow({
  init:()=>({step:0}),
  screen(s){const c=s.cena;
   if(s.step===0)return{kicker:'Qual o tamanho do problema?',items:BIO.cena.map((x,i)=>({t:x.t,s:x.s,r:'desde '+money(x.p[0]*100),act:'see',arg:i})),foot:'Quando você precisa de uma limpeza. Sem perguntas.'};
   if(s.step===1)return{card:{tag:`Van a ${s.min} min`,title:'Equipe '+s.eq,rows:[['Valor',money(s.pay)],['Van',s.van],['Exigência',s.ex],['Cena',c.t]],note:'Você não precisa estar no local, se identificar nem explicar nada. Só confirme o endereço.'},actions:[{label:'Confirmar',act:'go'},{label:'Outra equipe',act:'roll',alt:1},{label:'Guardar',act:'pin',alt:1}]};
-  return{card:{tag:'Limpeza concluída',title:'Equipe '+s.eq,rows:[['Resultado',s.res],['Deixaram para você',s.sob],['Cobrança',s.extra],['Total',money(s.pay)]],note:'Isso custou mais do que o contrato pagou?'},actions:[{label:'Novo pedido',act:'reset'}]}},
+  return{card:{tag:'Limpeza concluída',title:'Equipe '+s.eq,rows:[['Resultado',s.res],['Deixaram para você',s.sob],['Cobrança',s.extra],['Total',money(s.pay)]],aspects:[asp('Cena Limpa, Sem Vestígio',true)],note:'Isso custou mais do que o contrato pagou?'},actions:[{label:'Novo pedido',act:'reset'}]}},
  team(s){s.eq=pick(BIO.equipe);s.min=rnd(6,20);s.pay=rnd(s.cena.p[0],s.cena.p[1])*100;s.van=pick(BIO.van);s.ex=pick(BIO.exige)},
  on(s,a,arg){if(a==='see'){s.cena=BIO.cena[+arg];this.team(s);s.step=1}else if(a==='roll')this.team(s);else if(a==='go'){s.step=2;s.res=pick(BIO.result);s.sob=pick(BIO.sobrou);s.extra=pick(BIO.extra)}else if(a==='reset')return{step:0}},
  back(s){if(s.step>0){s.step=0;return true}}}));
@@ -368,7 +387,7 @@ Object.assign(APPS.wetinker,flow({
  screen(s){const o=s.o;
   if(s.step===0)return{kicker:'Oficinas abertas agora',items:s.list.map((x,i)=>({t:x.nome,s:`${x.dest} · ${x.km} km`,r:money(x.dia)+' o dia',act:'see',arg:i})),actions:[{label:'Buscar de novo',act:'reset'}],foot:'Melhor que a garagem do seu tio.'};
   if(s.step===1)return{card:{tag:`Aberta 24h · ${o.km} km`,title:o.nome,rows:[['Passe diário',money(o.dia)],['Destaque',o.dest],['Na bancada ao lado',o.viz],['Fila',o.fila],['Código QR de hoje',o.qr]],note:'Tem também: '+o.tam+'.'},actions:[{label:'Usar a oficina',act:'go'},{label:'Guardar',act:'pin',alt:1}]};
-  return{card:{tag:'Fim do turno',title:o.nome,rows:[['Você saiu com',s.feito],['Ao lado',o.viz],['Gasto',money(o.dia)]],note:'O código QR muda amanhã. O passe não acumula.'},actions:[{label:'Outra oficina',act:'reset'}]}},
+  return{card:{tag:'Fim do turno',title:o.nome,rows:[['Ao lado',o.viz],['Gasto',money(o.dia)]],aspects:/^Nada feito|travou/.test(s.feito)?[asp('Passe Diário Perdido')]:[asp(s.feito,true)],note:'O código QR muda amanhã. O passe não acumula.'},actions:[{label:'Outra oficina',act:'reset'}]}},
  on(s,a,arg){if(a==='see'){s.o=s.list[+arg];s.step=1}else if(a==='go'){s.step=2;s.feito=pick(WTK.feito)}else if(a==='reset')return this.init()},
  back(s){if(s.step>0){s.step=0;return true}}}));
 const KEYS=Object.keys(APPS);
@@ -385,10 +404,10 @@ const menu=m=>[...(m.items||[]).map(i=>({label:`${i.t} (${i.r})`,act:i.act,arg:i
 const btn=(x,i,cls)=>`<button class="${cls}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''} id="act-${x.act}-${x.arg??i}">`;
 
 const R={
-b:{home:()=>{const k=KEYS[sel];return`<div class="b-st"><span>▂▄▆█</span><span>${hhmm()}</span><span>▮▮▮</span></div><div class="b-mid"><span class="ar">▲ ${sel+1}/${KEYS.length}</span>${spr(k,90,1)}<span class="nm">${APPS[k].name}</span><span class="ar">▼</span></div><div class="b-soft"><span>Abrir</span><span>by javaijafoi</span></div>`},
- app:(k,a,m)=>{const c=m.card,mn=menu(m),p=pins(k);return`<div class="b-st"><span>${a.name}</span><span>${hhmm()}</span></div><div class="b-txt" id="b-txt">${m.kicker?`<p class="t">${m.kicker}</p>`:''}${c?`<p class="t">${c.title}</p><p>${c.tag}</p>${c.rows.map(x=>`<p>${x[0]}: ${x[1]}</p>`).join('')}${c.note?`<p>${c.note}</p>`:''}`:''}${mn.map((x,i)=>`<p class="m ${i===bsel?'sel':''}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''}>${i===bsel?'▶':'·'} ${x.label}</p>`).join('')}${m.foot?`<p>${m.foot}</p>`:''}${p.length&&!c?`<p class="t">Guardados: ${p.length}</p>`+p.map(x=>`<p>${x.title}</p>`).join(''):''}</div><div class="b-soft"><span>Selec.</span><span>Voltar</span></div>`}},
-f:{home:()=>{const C=['--zn-pink','--zn-cyan','--zn-yellow'],T=[-3,2,-1,3,-2,1,2];return`<div class="f-top"><span>iHUNT-OS</span><span>${hhmm()}</span></div><div class="f-wrap"><h1 class="f-h"><span>ESCOLHE UM APP</span></h1><div class="f-grid">${KEYS.map((k,i)=>`<button class="f-ic ${i===sel?'sel':''}" data-act="open" data-arg="${k}" id="f-${k}"><div class="tile" style="--bg:var(${C[i%3]});--rot:${T[i]}deg">${spr(k,50)}</div><span>${APPS[k].name}</span></button>`).join('')}</div><p class="f-hint">setas movem, enter abre. by @javaijafoi</p></div>`},
- app:(k,a,m)=>{const c=m.card,p=pins(k),SH=['--zn-pink','--zn-cyan','--zn-yellow'];return`<div class="f-top"><span>${a.name.toUpperCase()}</span><span>${hhmm()}</span></div><div class="f-wrap"><button class="d-back" data-act="back" id="f-back">← voltar</button>${m.kicker?`<div class="f-kick">${m.kicker}</div>`:''}${c?`<div class="f-box"><div class="f-head"><div class="tile">${spr(k,50)}</div><div><span class="f-tag">${c.tag}</span><b id="a-type">${fresh?'':c.title.toUpperCase()}</b></div></div>${c.rows.map((x,i)=>`<div class="a-row" style="animation-delay:${fresh?(i+1)*.14:0}s"><i>${x[0]}</i><u></u><b>${x[1]}</b></div>`).join('')}${c.note?`<p class="f-note">${c.note}</p>`:''}</div>`:''}${m.items?`<div class="f-list">${m.items.map((x,i)=>btn(x,i,'f-it')+`<div><b>${x.t}</b><small>${x.s}</small></div><span class="r">${x.r}</span></button>`).join('').replace(/class="f-it"/g,(_m,o)=>`class="f-it" style="--sh:var(${SH[(o>>3)%3]});--rot:${[-1,.8,-.5][(o>>3)%3]}deg"`)}</div>`:''}<div class="d-btns">${(m.actions||[]).map((x,i)=>btn(x,i,'d-b'+(x.alt||i%2?' alt':''))+x.label.toUpperCase()+'</button>').join('')}</div>${m.foot?`<p class="f-foot">${m.foot}</p>`:''}${p.length&&!c?`<div class="d-saved">guardados: ${p.map(x=>x.title).join(' / ')}</div>`:''}</div>`}}
+b:{home:()=>{const k=KEYS[sel];return`<div class="b-st"><span>▂▄▆█</span><span>${hhmm()}</span><span>▮▮▮</span></div><div class="b-mid"><span class="ar">▲ ${sel+1}/${KEYS.length}</span>${spr(k,90,1)}<span class="nm">${APPS[k].name}</span><span class="ar">▼</span></div><div class="b-soft"><span>Abrir</span><span>Destino: ${fp()}</span></div>`},
+ app:(k,a,m)=>{const c=m.card,mn=menu(m),p=pins(k);return`<div class="b-st"><span>${a.name}</span><span>${hhmm()}</span></div><div class="b-txt" id="b-txt">${m.kicker?`<p class="t">${m.kicker}</p>`:''}${c?`<p class="t">${c.title}</p><p>${c.tag}</p>${c.rows.map(x=>`<p>${x[0]}: ${x[1]}</p>`).join('')}${(c.aspects||[]).map(a=>`<p class="as">Aspecto: ${a.t}${a.free?' (1 invocação grátis)':''}</p>`).join('')}${c.note?`<p>${c.note}</p>`:''}`:''}${mn.map((x,i)=>`<p class="m ${i===bsel?'sel':''}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''}>${i===bsel?'▶':'·'} ${x.label}</p>`).join('')}${m.foot?`<p>${m.foot}</p>`:''}${p.length&&!c?`<p class="t">Guardados: ${p.length}</p>`+p.map(x=>`<p>${x.title}</p>`).join(''):''}</div><div class="b-soft"><span>Selec.</span><span>Voltar</span></div>`}},
+f:{home:()=>{const C=['--zn-pink','--zn-cyan','--zn-yellow'],T=[-3,2,-1,3,-2,1,2];return`<div class="f-top"><span>iHUNT-OS</span><span>${hhmm()}</span></div><div class="f-wrap"><h1 class="f-h"><span>ESCOLHE UM APP</span></h1><div class="f-grid">${KEYS.map((k,i)=>`<button class="f-ic ${i===sel?'sel':''}" data-act="open" data-arg="${k}" id="f-${k}"><div class="tile" style="--bg:var(${C[i%3]});--rot:${T[i]}deg">${spr(k,50)}</div><span>${APPS[k].name}</span></button>`).join('')}</div><div class="f-pd"><button data-act="pd" data-arg="-1" id="pd-menos" aria-label="Menos um ponto">−</button><span>PONTOS DE DESTINO <b>${fp()}</b></span><button data-act="pd" data-arg="1" id="pd-mais" aria-label="Mais um ponto">+</button></div><p class="f-hint">by @javaijafoi</p></div>`},
+ app:(k,a,m)=>{const c=m.card,p=pins(k),SH=['--zn-pink','--zn-cyan','--zn-yellow'];return`<div class="f-top"><span>${a.name.toUpperCase()}</span><span>${hhmm()}</span></div><div class="f-wrap"><button class="d-back" data-act="back" id="f-back">← voltar</button>${m.kicker?`<div class="f-kick">${m.kicker}</div>`:''}${c?`<div class="f-box"><div class="f-head"><div class="tile">${spr(k,50)}</div><div><span class="f-tag">${c.tag}</span><b id="a-type">${fresh?'':c.title.toUpperCase()}</b></div></div>${c.rows.map((x,i)=>`<div class="a-row" style="animation-delay:${fresh?(i+1)*.14:0}s"><i>${x[0]}</i><u></u><b>${x[1]}</b></div>`).join('')}${(c.aspects||[]).map(a=>`<div class="f-asp"><small>ASPECTO${a.free?' · 1 INVOCAÇÃO GRÁTIS':''}</small>${a.t}</div>`).join('')}${c.note?`<p class="f-note">${c.note}</p>`:''}</div>`:''}${m.items?`<div class="f-list">${m.items.map((x,i)=>btn(x,i,'f-it')+`<div><b>${x.t}</b><small>${x.s}</small></div><span class="r">${x.r}</span></button>`).join('').replace(/class="f-it"/g,(_m,o)=>`class="f-it" style="--sh:var(${SH[(o>>3)%3]});--rot:${[-1,.8,-.5][(o>>3)%3]}deg"`)}</div>`:''}<div class="d-btns">${(m.actions||[]).map((x,i)=>btn(x,i,'d-b'+(x.alt||i%2?' alt':''))+x.label.toUpperCase()+'</button>').join('')}</div>${m.foot?`<p class="f-foot">${m.foot}</p>`:''}${p.length&&!c?`<div class="d-saved">guardados: ${p.map(x=>x.title).join(' / ')}</div>`:''}</div>`}}
 };
 let typeT;
 function render(){
@@ -413,6 +432,7 @@ function act(a,arg){
     else if(a==='nav')sel=(sel+ +arg+n)%n;
     else if(a==='softL'||a==='ok')return act('open',KEYS[sel]);
     else if(a==='num'){if(KEYS[arg-1])return act('open',KEYS[arg-1]);return}
+    else if(a==='pd')fpAdd(arg);else if(a==='pin')fpAdd(1);else if(a==='softR')fpAdd(-1);
     else return;
   }else{
     const app=APPS[view],st=ST[view],mn=menu(M);
