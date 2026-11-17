@@ -2,7 +2,7 @@
 
 Um celular de mentira com os apps do mundo de #iHunt, para usar na mesa de RPG. O jogador "tira o celular do bolso", abre um app e ele sorteia um resultado: um sofá para dormir, um médico que não faz perguntas, um contrato de caça.
 
-No computador o celular aparece na mão de alguém. No celular fica só a tela.
+No computador aparece o aparelho inteiro. No celular fica só a tela.
 
 ## Apps
 
