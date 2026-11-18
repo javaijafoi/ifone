@@ -59,5 +59,24 @@ HTML, CSS e JavaScript puros, service worker para o modo offline e `localStorage
 
 ---
 
+## 🌴 Mais do Peter
+
+Este projeto faz parte do [**portfólio do Peter**](https://javaijafoi.vercel.app), uma vitrine de jogos, histórias interativas e experimentos com IA, todos no ar. Perfil no GitHub: [@javaijafoi](https://github.com/javaijafoi).
+
+| Projeto | No ar | Código |
+| --- | --- | --- |
+| **Antigravitus**: Diário de aventuras num RPG de texto, jogado por agentes de IA | [abrir](https://antigravitus.vercel.app) | [repo](https://github.com/javaijafoi/antigravitus) |
+| **Picotron Arena**: Dez modos de arcade num computador de fantasia | [abrir](https://picotron-arena.vercel.app) | [repo](https://github.com/javaijafoi/picotron-arcade) |
+| **Jogo do Davi**: Jogo para crianças aprenderem a ler e a contar | [abrir](https://jogo-davi.vercel.app) | [repo](https://github.com/javaijafoi/Jogo-davi) |
+| **Matusalém**: História interativa de mistério no Bixiga | [abrir](https://matusalem-six.vercel.app) | — |
+| **Era Vargas: O Equilibrista**: Jogo 3D de decisões sobre o Brasil de 1930 a 1945 | [abrir](https://era-vargas-seliga.vercel.app) | [repo](https://github.com/javaijafoi/era-vargas-seliga) |
+| **Pinta-Kara**: Desenhe no ar com as mãos, só com a webcam | [abrir](https://pinta-kara.vercel.app) | [repo](https://github.com/javaijafoi/pinta-kara) |
+| **Rolador**: Dados para qualquer RPG de mesa, com cara de PICO-8 | [abrir](https://rolador-javaijafoi.vercel.app) | [repo](https://github.com/javaijafoi/rolador) |
+| **Pico Poetry**: Poemas em pixel para sortear e compartilhar como imagem | [abrir](https://pico-poetry.vercel.app) | — |
+| **#iHunt Chronicle**: Mesa virtual para o RPG #iHunt (em pausa) | [abrir](https://ihunt-chronicle.vercel.app) | — |
+| **iHunt App**: Fork do Fari App (Fate) para mesas de #iHunt | — | [repo](https://github.com/javaijafoi/iHunt-app) |
+
+---
+
 Projeto de fã, sem vínculo com os autores de #iHunt.
-Feito por [@javaijafoi](https://github.com/javaijafoi) · parte do [portfólio](https://fantasy-portfolio-zeta.vercel.app).
+Feito por [@javaijafoi](https://github.com/javaijafoi) · parte do [portfólio](https://javaijafoi.vercel.app).
