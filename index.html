@@ -143,6 +143,9 @@ body[data-skin=f]{background:var(--zn-cyan) radial-gradient(#0003 1.5px,#0000 1.
 .f-ic.sel .tile{animation:bob .5s steps(2) infinite;outline:4px solid var(--zn-pink);outline-offset:3px}
 .f-ic.sel span{background:var(--zn-ink);color:var(--zn-paper);padding:0 6px}
 .f-hint{font:13px var(--f-zn2);text-align:center;margin-top:auto;transform:rotate(1deg)}
+.f-hint a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.site-links{display:none}
+@media(min-width:700px){.site-links{display:block;position:fixed;left:0;right:0;bottom:6px;text-align:center;font:12px/1.2 system-ui,sans-serif;color:#0b0b0e;opacity:.75;pointer-events:none;z-index:1}.site-links a{pointer-events:auto;color:inherit;text-decoration:underline;text-underline-offset:2px}.site-links a:hover{opacity:1}}
 .f-box{position:relative;background:#fffdf5;border:3px solid var(--zn-ink);box-shadow:6px 6px 0 var(--zn-pink);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-.6deg)}
 .f-head{display:flex;gap:12px;align-items:center;margin-bottom:4px}
 .f-head .tile{border:3px solid var(--zn-ink);background:var(--zn-yellow);padding:6px;transform:rotate(-4deg);flex:none}
@@ -176,6 +179,20 @@ body[data-skin=f]{background:var(--zn-cyan) radial-gradient(#0003 1.5px,#0000 1.
 .d-saved button{font:14px var(--f-zn2);min-height:32px;padding:4px 8px;text-decoration:underline wavy var(--zn-pink);margin-left:6px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.a-row{opacity:1}}
 </style>
+<link rel="canonical" href="https://ifone-javaijafoi.vercel.app/">
+<meta name="author" content="Peter (javaijafoi)">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="iFone">
+<meta property="og:title" content="iFone">
+<meta property="og:description" content="Celular de mentira com os apps do mundo de #iHunt: cada app sorteia um resultado para usar na mesa de RPG. PWA que funciona offline.">
+<meta property="og:url" content="https://ifone-javaijafoi.vercel.app/">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iFone">
+<meta name="twitter:description" content="Celular de mentira com os apps do mundo de #iHunt: cada app sorteia um resultado para usar na mesa de RPG. PWA que funciona offline.">
+<link rel="author" href="https://javaijafoi.vercel.app">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "@id": "https://ifone-javaijafoi.vercel.app/#app", "name": "iFone", "url": "https://ifone-javaijafoi.vercel.app", "description": "Celular de mentira com os apps do mundo de #iHunt: cada app sorteia um resultado para usar na mesa de RPG. PWA que funciona offline.", "applicationCategory": "GameApplication", "operatingSystem": "Qualquer navegador moderno", "inLanguage": "pt-BR", "keywords": "iHunt, Fate, RPG de mesa, gerador aleatório, PWA", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"}, "author": {"@id": "https://javaijafoi.vercel.app/#peter"}, "codeRepository": "https://github.com/javaijafoi/ifone", "isPartOf": {"@id": "https://javaijafoi.vercel.app/#website"}}, {"@type": "Person", "@id": "https://javaijafoi.vercel.app/#peter", "name": "Peter", "alternateName": "javaijafoi", "url": "https://javaijafoi.vercel.app", "sameAs": ["https://github.com/javaijafoi"]}, {"@type": "WebSite", "@id": "https://javaijafoi.vercel.app/#website", "url": "https://javaijafoi.vercel.app", "name": "California Dreams '88 // Peter's Arcade"}]}</script>
 </head>
 <body>
 
@@ -410,7 +427,7 @@ const btn=(x,i,cls)=>`<button class="${cls}" data-act="${x.act}" ${x.arg!==undef
 const R={
 b:{home:()=>{const k=KEYS[sel];return`<div class="b-st"><span>▂▄▆█</span><span>${hhmm()}</span><span>▮▮▮</span></div><div class="b-mid"><span class="ar">▲ ${sel+1}/${KEYS.length}</span>${spr(k,90,1)}<span class="nm">${APPS[k].name}</span><span class="ar">▼</span></div><div class="b-soft"><span>Abrir</span><span>Destino: ${fp()}</span></div>`},
  app:(k,a,m)=>{const c=m.card,mn=menu(m),p=pins(k);return`<div class="b-st"><span>${a.name}</span><span>${hhmm()}</span></div><div class="b-txt" id="b-txt">${m.kicker?`<p class="t">${m.kicker}</p>`:''}${c?`<p class="t">${c.title}</p><p>${c.tag}</p>${c.rows.map(x=>`<p>${x[0]}: ${x[1]}</p>`).join('')}${(c.aspects||[]).map(a=>`<p class="as">Aspecto: ${a.t}${a.free?' (1 invocação grátis)':''}</p>`).join('')}${c.note?`<p>${c.note}</p>`:''}`:''}${mn.map((x,i)=>`<p class="m ${i===bsel?'sel':''}" data-act="${x.act}" ${x.arg!==undefined?`data-arg="${x.arg}"`:''}>${i===bsel?'▶':'·'} ${x.label}</p>`).join('')}${m.foot?`<p>${m.foot}</p>`:''}${p.length&&!c?`<p class="t">Guardados: ${p.length}</p>`+p.map(x=>`<p>${x.title}</p>`).join(''):''}</div><div class="b-soft"><span>Selec.</span>${toast?`<span>${toast}</span>`:''}<span>Voltar</span></div>`}},
-f:{home:()=>{const C=['--zn-pink','--zn-cyan','--zn-yellow'],T=[-3,2,-1,3,-2,1,2];return`<div class="f-top"><span>iHUNT-OS</span><span>${hhmm()}</span></div><div class="f-wrap"><h1 class="f-h"><span>ESCOLHE UM APP</span></h1><div class="f-grid">${KEYS.map((k,i)=>`<button class="f-ic ${i===sel?'sel':''}" data-act="open" data-arg="${k}" id="f-${k}"><div class="tile" style="--bg:var(${C[i%3]});--rot:${T[i]}deg">${spr(k,50)}</div><span>${APPS[k].name}</span></button>`).join('')}</div><div class="f-pd"><button data-act="pd" data-arg="-1" id="pd-menos" aria-label="Menos um ponto">−</button><span>PONTOS DE DESTINO <b>${fp()}</b></span><button data-act="pd" data-arg="1" id="pd-mais" aria-label="Mais um ponto">+</button></div><p class="f-hint">by @javaijafoi</p></div>`},
+f:{home:()=>{const C=['--zn-pink','--zn-cyan','--zn-yellow'],T=[-3,2,-1,3,-2,1,2];return`<div class="f-top"><span>iHUNT-OS</span><span>${hhmm()}</span></div><div class="f-wrap"><h1 class="f-h"><span>ESCOLHE UM APP</span></h1><div class="f-grid">${KEYS.map((k,i)=>`<button class="f-ic ${i===sel?'sel':''}" data-act="open" data-arg="${k}" id="f-${k}"><div class="tile" style="--bg:var(${C[i%3]});--rot:${T[i]}deg">${spr(k,50)}</div><span>${APPS[k].name}</span></button>`).join('')}</div><div class="f-pd"><button data-act="pd" data-arg="-1" id="pd-menos" aria-label="Menos um ponto">−</button><span>PONTOS DE DESTINO <b>${fp()}</b></span><button data-act="pd" data-arg="1" id="pd-mais" aria-label="Mais um ponto">+</button></div><p class="f-hint">by <a href="https://github.com/javaijafoi" target="_blank" rel="noopener">@javaijafoi</a> · <a href="https://javaijafoi.vercel.app" target="_blank" rel="noopener">portfólio</a> · <a href="https://github.com/javaijafoi/ifone" target="_blank" rel="noopener">código</a></p></div>`},
  app:(k,a,m)=>{const c=m.card,p=pins(k),SH=['--zn-pink','--zn-cyan','--zn-yellow'];return`<div class="f-top"><span>${a.name.toUpperCase()}</span><span>${hhmm()}</span></div><div class="f-wrap"><button class="d-back" data-act="back" id="f-back">← voltar</button>${m.kicker?`<div class="f-kick">${m.kicker}</div>`:''}${c?`<div class="f-box"><div class="f-head"><div class="tile">${spr(k,50)}</div><div><span class="f-tag">${c.tag}</span><b id="a-type">${fresh?'':c.title.toUpperCase()}</b></div></div>${c.rows.map((x,i)=>`<div class="a-row" style="animation-delay:${fresh?(i+1)*.14:0}s"><i>${x[0]}</i><u></u><b>${x[1]}</b></div>`).join('')}${(c.aspects||[]).map(a=>`<div class="f-asp"><small>ASPECTO${a.free?' · 1 INVOCAÇÃO GRÁTIS':''}</small>${a.t}</div>`).join('')}${c.note?`<p class="f-note">${c.note}</p>`:''}</div>`:''}${m.items?`<div class="f-list">${m.items.map((x,i)=>btn(x,i,'f-it')+`<div><b>${x.t}</b><small>${x.s}</small></div><span class="r">${x.r}</span></button>`).join('').replace(/class="f-it"/g,(_m,o)=>`class="f-it" style="--sh:var(${SH[(o>>3)%3]});--rot:${[-1,.8,-.5][(o>>3)%3]}deg"`)}</div>`:''}<div class="d-btns">${(m.actions||[]).map((x,i)=>btn(x,i,'d-b'+(x.alt||i%2?' alt':''))+x.label.toUpperCase()+'</button>').join('')}</div>${m.foot?`<p class="f-foot">${m.foot}</p>`:''}${toast?`<p class="f-toast" role="status">${toast}</p>`:''}${p.length&&!c?`<div class="d-saved">guardados: ${p.map(x=>x.title).join(' / ')} <button data-act="unpin" id="f-unpin">limpar</button></div>`:''}</div>`}}
 };
 let typeT;
@@ -456,5 +473,6 @@ document.addEventListener('keydown',e=>{const cols=skin==='f'&&view==='home'?3:1
 render();setInterval(()=>{if(view==='home')render()},30000);
 </script>
 <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))</script>
+<p class="site-links">por <a href="https://github.com/javaijafoi" target="_blank" rel="noopener">@javaijafoi</a> · <a href="https://javaijafoi.vercel.app" target="_blank" rel="noopener">portfólio</a> · <a href="https://github.com/javaijafoi/ifone" target="_blank" rel="noopener">código</a></p>
 </body>
 </html>

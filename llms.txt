@@ -1,0 +1,15 @@
+# iFone
+
+> Celular de mentira com os apps do mundo de #iHunt: cada app sorteia um resultado para usar na mesa de RPG. PWA que funciona offline.
+
+O iFone é um celular de mentira para mesas de #iHunt (RPG no sistema Fate). O jogador abre um app (Sofah, MedJá, Brinqr, Tempest, #iHunt, Biopure, WeTinker) e ele sorteia um resultado pronto para a cena. Funciona offline como PWA. Projeto de fã, sem vínculo oficial com os autores de #iHunt.
+
+Feito por Peter (@javaijafoi), desenvolvedor brasileiro. Site em português do Brasil.
+
+## Links
+
+- [Abrir iFone](https://ifone-javaijafoi.vercel.app/)
+- [Portfólio do Peter](https://javaijafoi.vercel.app): Todos os projetos do Peter (jogos, histórias interativas e experimentos com IA).
+- [Código deste projeto](https://github.com/javaijafoi/ifone): Repositório público no GitHub.
+- [GitHub do Peter](https://github.com/javaijafoi): Perfil do autor.
+- [llms.txt do portfólio](https://javaijafoi.vercel.app/llms.txt): Guia de todos os projetos para IAs.
