@@ -1,14 +1,14 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "ifone-javaijafoi.vercel.app"
         }
       ],
-      "destination": "https://ifone.javaijafoi.dev/:path*",
+      "destination": "https://ifone.javaijafoi.dev/$1",
       "statusCode": 301
     }
   ]
